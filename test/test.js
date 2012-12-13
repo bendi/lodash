@@ -1805,24 +1805,24 @@
     });
 
     asyncTest('throttled with 128 interval should be called twice during 280 ms interval', function() {
-    	var counter = 0,
-    		throttled = _.throttle(function(){counter++;}, 128, false),
-    		limit = 280,
-    		start = new Date;
+      var counter = 0,
+        throttled = _.throttle(function(){counter++;}, 128, false),
+        limit = 280,
+        start = new Date;
 
-    	function runThrottled() {
-    		throttled();
-    		if ((new Date - start) < limit) {
-    			setTimeout(runThrottled, 10);
-    		}
-    	}
+      function runThrottled() {
+        throttled();
+        if ((new Date - start) < limit) {
+          setTimeout(runThrottled, 10);
+        }
+      }
 
-    	runThrottled();
+      runThrottled();
 
-    	setTimeout(function() {
-    		equal(counter, 2);
-    		QUnit.start();
-    	}, limit);
+      setTimeout(function() {
+        equal(counter, 2);
+        QUnit.start();
+      }, limit);
     });
 
     asyncTest('should trigger trailing call when invoked repeatedly', function() {
