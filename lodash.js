@@ -3632,18 +3632,20 @@
    * @category Functions
    * @param {Function} func The function to throttle.
    * @param {Number} wait The number of milliseconds to throttle executions to.
+   * @param {Boolean} immediate=true A flag to indicate execution is on the leading
+   *  edge of the timeout.
    * @returns {Function} Returns the new throttled function.
    * @example
    *
    * var throttled = _.throttle(updatePosition, 100);
    * jQuery(window).on('scroll', throttled);
    */
-  function throttle(func, wait) {
+  function throttle(func, wait, immediate) {
     var args,
         result,
         thisArg,
         timeoutId,
-        lastCalled = 0;
+        lastCalled = immediate === undefined || immediate === true ? 0 : new Date;
 
     function trailingCall() {
       lastCalled = new Date;
